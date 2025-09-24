@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +77,8 @@
             border-bottom: 2px solid transparent;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover,
+        nav a.active {
             border-bottom-color: var(--secondary-color);
         }
 
@@ -109,7 +111,8 @@
             transition: var(--transition);
         }
 
-        .mobile-menu a:hover, .mobile-menu a.active {
+        .mobile-menu a:hover,
+        .mobile-menu a.active {
             background-color: rgba(0, 0, 0, 0.2);
             padding-left: 30px;
         }
@@ -379,8 +382,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Error Message */
@@ -421,7 +429,8 @@
             width: 100%;
         }
 
-        .bottom-nav a:hover, .bottom-nav a.active {
+        .bottom-nav a:hover,
+        .bottom-nav a.active {
             color: var(--primary-color);
         }
 
@@ -476,6 +485,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -485,7 +495,7 @@
                 Recipe Finder
             </div>
             <nav>
-                <a href="#" data-page="categories" class="nav-link active">Categories</a>
+                <a href="#" data-page="categories" class="nav-link active">All Categories</a>
                 <a href="#" data-page="recipes" class="nav-link">All Recipes</a>
             </nav>
             <button class="menu-toggle" id="menuToggle">
@@ -493,7 +503,7 @@
             </button>
         </div>
         <div class="mobile-menu" id="mobileMenu">
-            <a href="#" data-page="categories" class="mobile-nav-link active">Categories</a>
+            <a href="#" data-page="categories" class="mobile-nav-link active">All Categories</a>
             <a href="#" data-page="recipes" class="mobile-nav-link">All Recipes</a>
         </div>
     </header>
@@ -503,12 +513,13 @@
         <!-- Categories Page -->
         <div id="categories" class="page active">
             <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--dark-color);">Recipe Categories</h1>
-            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Browse recipes by category and discover your next favorite meal</p>
-            
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Browse recipes by category and discover your
+                next favorite meal</p>
+
             <div class="spinner" id="categoriesSpinner">
                 <i class="fas fa-spinner"></i>
             </div>
-            
+
             <div class="category-container" id="categoryContainer" style="display: none;">
                 <!-- Categories will be dynamically loaded here -->
             </div>
@@ -517,19 +528,20 @@
         <!-- Recipes Page -->
         <div id="recipes" class="page">
             <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--dark-color);">All Recipes</h1>
-            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Explore our collection of delicious recipes from around the world</p>
-            
+            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Explore our collection of delicious recipes
+                from around the world</p>
+
             <div class="search-container">
                 <form class="search-form" id="searchForm">
                     <input type="text" class="search-input" id="searchInput" placeholder="Search for a recipe...">
                     <button type="submit" class="search-btn">Search</button>
                 </form>
             </div>
-            
+
             <div class="spinner" id="recipesSpinner">
                 <i class="fas fa-spinner"></i>
             </div>
-            
+
             <div class="recipe-grid" id="recipeGrid" style="display: none;">
                 <!-- Recipes will be dynamically loaded here -->
             </div>
@@ -540,11 +552,11 @@
             <a href="#" class="back-btn" id="backBtn">
                 <i class="fas fa-arrow-left"></i> Back to Recipes
             </a>
-            
+
             <div class="spinner" id="recipeDetailSpinner">
                 <i class="fas fa-spinner"></i>
             </div>
-            
+
             <div class="recipe-detail" id="recipeDetailContainer" style="display: none;">
                 <!-- Recipe details will be dynamically loaded here -->
             </div>
@@ -566,7 +578,7 @@
     <script>
         // API Base URL
         const API_BASE = 'https://www.themealdb.com/api/json/v1/1';
-        
+
         // DOM Elements
         const pages = document.querySelectorAll('.page');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -577,7 +589,7 @@
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
         const backBtn = document.getElementById('backBtn');
-        
+
         // Page Elements
         const categoriesSpinner = document.getElementById('categoriesSpinner');
         const categoryContainer = document.getElementById('categoryContainer');
@@ -585,14 +597,14 @@
         const recipeGrid = document.getElementById('recipeGrid');
         const recipeDetailSpinner = document.getElementById('recipeDetailSpinner');
         const recipeDetailContainer = document.getElementById('recipeDetailContainer');
-        
+
         // State
         let currentCategory = null;
-        
+
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             loadCategories();
-            
+
             // Navigation event listeners
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
@@ -601,7 +613,7 @@
                     showPage(page);
                 });
             });
-            
+
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -610,7 +622,7 @@
                     mobileMenu.style.display = 'none';
                 });
             });
-            
+
             bottomNavLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -618,12 +630,12 @@
                     showPage(page);
                 });
             });
-            
+
             // Menu toggle
             menuToggle.addEventListener('click', () => {
                 mobileMenu.style.display = mobileMenu.style.display === 'block' ? 'none' : 'block';
             });
-            
+
             // Search form
             searchForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -632,24 +644,24 @@
                     searchRecipes(searchTerm);
                 }
             });
-            
+
             // Back button
             backBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 showPage('recipes');
             });
         });
-        
+
         // Show Page
         function showPage(pageId) {
             // Hide all pages
             pages.forEach(page => {
                 page.classList.remove('active');
             });
-            
+
             // Show selected page
             document.getElementById(pageId).classList.add('active');
-            
+
             // Update navigation active states
             navLinks.forEach(link => {
                 link.classList.remove('active');
@@ -657,35 +669,35 @@
                     link.classList.add('active');
                 }
             });
-            
+
             mobileNavLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('data-page') === pageId) {
                     link.classList.add('active');
                 }
             });
-            
+
             bottomNavLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('data-page') === pageId) {
                     link.classList.add('active');
                 }
             });
-            
+
             // Scroll to top
             window.scrollTo(0, 0);
         }
-        
+
         // Load Categories
         async function loadCategories() {
             try {
                 const response = await fetch(`${API_BASE}/categories.php`);
                 const data = await response.json();
-                
+
                 if (data.categories) {
                     categoriesSpinner.style.display = 'none';
                     categoryContainer.style.display = 'grid';
-                    
+
                     data.categories.forEach(category => {
                         const categoryCard = document.createElement('div');
                         categoryCard.className = 'category-card';
@@ -696,13 +708,13 @@
                                 <p class="category-desc">${category.strCategoryDescription.substring(0, 60)}...</p>
                             </div>
                         `;
-                        
+
                         categoryCard.addEventListener('click', () => {
                             currentCategory = category.strCategory;
                             loadRecipesByCategory(category.strCategory);
                             showPage('recipes');
                         });
-                        
+
                         categoryContainer.appendChild(categoryCard);
                     });
                 }
@@ -711,21 +723,21 @@
                 categoriesSpinner.innerHTML = '<div class="error-message">Failed to load categories. Please try again later.</div>';
             }
         }
-        
+
         // Load Recipes by Category
         async function loadRecipesByCategory(category) {
             recipesSpinner.style.display = 'flex';
             recipeGrid.style.display = 'none';
             recipeGrid.innerHTML = '';
-            
+
             try {
                 const response = await fetch(`${API_BASE}/filter.php?c=${category}`);
                 const data = await response.json();
-                
+
                 if (data.meals) {
                     recipesSpinner.style.display = 'none';
                     recipeGrid.style.display = 'grid';
-                    
+
                     data.meals.forEach(meal => {
                         const recipeCard = document.createElement('div');
                         recipeCard.className = 'recipe-card';
@@ -736,12 +748,12 @@
                                 <span class="recipe-category">${category}</span>
                             </div>
                         `;
-                        
+
                         recipeCard.addEventListener('click', () => {
                             loadRecipeDetail(meal.idMeal);
                             showPage('recipe-detail');
                         });
-                        
+
                         recipeGrid.appendChild(recipeCard);
                     });
                 } else {
@@ -753,27 +765,27 @@
                 recipesSpinner.innerHTML = '<div class="error-message">Failed to load recipes. Please try again later.</div>';
             }
         }
-        
+
         // Load All Recipes
         async function loadAllRecipes() {
             recipesSpinner.style.display = 'flex';
             recipeGrid.style.display = 'none';
             recipeGrid.innerHTML = '';
-            
+
             try {
                 // Since there's no direct endpoint to get all recipes, we'll get a few random ones
                 const promises = [];
                 for (let i = 0; i < 10; i++) {
                     promises.push(fetch(`${API_BASE}/random.php`).then(res => res.json()));
                 }
-                
+
                 const results = await Promise.all(promises);
                 const meals = results.map(result => result.meals[0]).filter(meal => meal);
-                
+
                 if (meals.length > 0) {
                     recipesSpinner.style.display = 'none';
                     recipeGrid.style.display = 'grid';
-                    
+
                     meals.forEach(meal => {
                         const recipeCard = document.createElement('div');
                         recipeCard.className = 'recipe-card';
@@ -784,12 +796,12 @@
                                 <span class="recipe-category">${meal.strCategory}</span>
                             </div>
                         `;
-                        
+
                         recipeCard.addEventListener('click', () => {
                             loadRecipeDetail(meal.idMeal);
                             showPage('recipe-detail');
                         });
-                        
+
                         recipeGrid.appendChild(recipeCard);
                     });
                 } else {
@@ -801,21 +813,21 @@
                 recipesSpinner.innerHTML = '<div class="error-message">Failed to load recipes. Please try again later.</div>';
             }
         }
-        
+
         // Search Recipes
         async function searchRecipes(searchTerm) {
             recipesSpinner.style.display = 'flex';
             recipeGrid.style.display = 'none';
             recipeGrid.innerHTML = '';
-            
+
             try {
                 const response = await fetch(`${API_BASE}/search.php?s=${searchTerm}`);
                 const data = await response.json();
-                
+
                 if (data.meals) {
                     recipesSpinner.style.display = 'none';
                     recipeGrid.style.display = 'grid';
-                    
+
                     data.meals.forEach(meal => {
                         const recipeCard = document.createElement('div');
                         recipeCard.className = 'recipe-card';
@@ -826,12 +838,12 @@
                                 <span class="recipe-category">${meal.strCategory}</span>
                             </div>
                         `;
-                        
+
                         recipeCard.addEventListener('click', () => {
                             loadRecipeDetail(meal.idMeal);
                             showPage('recipe-detail');
                         });
-                        
+
                         recipeGrid.appendChild(recipeCard);
                     });
                 } else {
@@ -843,21 +855,21 @@
                 recipesSpinner.innerHTML = '<div class="error-message">Failed to search recipes. Please try again later.</div>';
             }
         }
-        
+
         // Load Recipe Detail
         async function loadRecipeDetail(recipeId) {
             recipeDetailSpinner.style.display = 'flex';
             recipeDetailContainer.style.display = 'none';
-            
+
             try {
                 const response = await fetch(`${API_BASE}/lookup.php?i=${recipeId}`);
                 const data = await response.json();
-                
+
                 if (data.meals && data.meals.length > 0) {
                     const meal = data.meals[0];
                     recipeDetailSpinner.style.display = 'none';
                     recipeDetailContainer.style.display = 'block';
-                    
+
                     // Extract ingredients
                     const ingredients = [];
                     for (let i = 1; i <= 20; i++) {
@@ -868,7 +880,7 @@
                             });
                         }
                     }
-                    
+
                     recipeDetailContainer.innerHTML = `
                         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="recipe-detail-img">
                         <div class="recipe-detail-content">
@@ -906,7 +918,7 @@
                 recipeDetailSpinner.innerHTML = '<div class="error-message">Failed to load recipe details. Please try again later.</div>';
             }
         }
-        
+
         // Load all recipes when the recipes page is first shown
         document.addEventListener('DOMContentLoaded', () => {
             // We'll load all recipes when the user navigates to the recipes page
@@ -920,9 +932,10 @@
                     }
                 });
             });
-            
+
             observer.observe(recipesPage, { attributes: true });
         });
     </script>
 </body>
+
 </html>
