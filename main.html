@@ -401,74 +401,6 @@
             text-align: center;
         }
 
-        /* Sales Form Styles */
-        .sales-form-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: var(--box-shadow);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1.2rem;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: var(--transition);
-            width: 100%;
-        }
-
-        .submit-btn:hover {
-            background-color: #c0392b;
-        }
-
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: var(--border-radius);
-            margin-top: 1rem;
-            text-align: center;
-            display: none;
-        }
-
         /* Bottom Navigation (Mobile) */
         .bottom-nav {
             display: flex;
@@ -565,7 +497,6 @@
             <nav>
                 <a href="#" data-page="categories" class="nav-link active">All Categories</a>
                 <a href="#" data-page="recipes" class="nav-link">All Recipes</a>
-                <a href="#" data-page="sales-form" class="nav-link">Sales</a>
             </nav>
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
@@ -574,7 +505,6 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="#" data-page="categories" class="mobile-nav-link active">All Categories</a>
             <a href="#" data-page="recipes" class="mobile-nav-link">All Recipes</a>
-            <a href="#" data-page="sales-form" class="mobile-nav-link">Sales</a>
         </div>
     </header>
 
@@ -631,44 +561,6 @@
                 <!-- Recipe details will be dynamically loaded here -->
             </div>
         </div>
-
-        <!-- Sales Form Page -->
-        <div id="sales-form" class="page">
-            <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--dark-color);">Sales Form</h1>
-            <p style="font-size: 1.1rem; color: #666; margin-bottom: 2rem;">Fill out the form below to record a sale</p>
-
-            <div class="sales-form-container">
-                <form id="salesForm">
-                    <div class="form-group">
-                        <label for="tabName">Tab Name</label>
-                        <input type="text" id="tabName" class="form-control" placeholder="Enter tab name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="productName">Product Name</label>
-                        <input type="text" id="productName" class="form-control" placeholder="Enter product name" required>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="quantity">Quantity</label>
-                            <input type="number" id="quantity" class="form-control" placeholder="Enter quantity" min="1" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phoneNumber">Phone Number</label>
-                            <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter phone number" required>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Submit Sale</button>
-                    
-                    <div class="success-message" id="successMessage">
-                        Sale recorded successfully!
-                    </div>
-                </form>
-            </div>
-        </div>
     </main>
 
     <!-- Bottom Navigation (Mobile) -->
@@ -681,9 +573,9 @@
             <i class="fas fa-book"></i>
             <span>Recipes</span>
         </a>
-        <a href="#" data-page="sales-form" class="bottom-nav-link">
-            <i class="fas fa-shopping-cart"></i>
-            <span>Sales</span>
+        <a href="#" data-page="recipes" class="bottom-nav-link">
+            <i class="fas fa-book"></i>
+            <span>Categories</span>
         </a>
     </nav>
 
@@ -701,8 +593,6 @@
         const searchForm = document.getElementById('searchForm');
         const searchInput = document.getElementById('searchInput');
         const backBtn = document.getElementById('backBtn');
-        const salesForm = document.getElementById('salesForm');
-        const successMessage = document.getElementById('successMessage');
 
         // Page Elements
         const categoriesSpinner = document.getElementById('categoriesSpinner');
@@ -763,36 +653,6 @@
             backBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 showPage('recipes');
-            });
-
-            // Sales form submission
-            salesForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                // Get form values
-                const tabName = document.getElementById('tabName').value;
-                const productName = document.getElementById('productName').value;
-                const quantity = document.getElementById('quantity').value;
-                const phoneNumber = document.getElementById('phoneNumber').value;
-                
-                // Log the data (in a real app, you would send this to a server)
-                console.log({
-                    tabName,
-                    productName,
-                    quantity,
-                    phoneNumber
-                });
-                
-                // Show success message
-                successMessage.style.display = 'block';
-                
-                // Reset form
-                salesForm.reset();
-                
-                // Hide success message after 3 seconds
-                setTimeout(() => {
-                    successMessage.style.display = 'none';
-                }, 3000);
             });
         });
 
@@ -1083,19 +943,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
