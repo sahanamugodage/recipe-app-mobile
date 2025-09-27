@@ -551,8 +551,16 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
-        .main-image{
+
+        .main-image {
             width: 250px;
+        }
+
+        .sahan-image-data {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -643,7 +651,9 @@
             <div class="sales-form-container">
 
                 <form id="salesForm">
-                    <img src="./logo.jpg" alt="base" class="main-image" srcset="">
+                    <div class="sahan-image-data">
+                        <img src="./logo.jpg" alt="base" class="main-image" srcset="">
+                    </div>
                     <!-- <div class="form-group">
                         <label for="tabName">Tab Name</label>
                         <input type="text" id="tabName" class="form-control" placeholder="Enter tab name" required>
